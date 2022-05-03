@@ -9,10 +9,22 @@ from brownie import (
     LinkToken,
 )
 
-LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local", "mainnet-fork", "hardhat", "local-ganache"]
+LOCAL_BLOCKCHAIN_ENVIRONMENTS = [
+    "development",
+    "ganache-local",
+    "mainnet-fork",
+    "hardhat",
+    "local-ganache",
+]
 FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork", "mainnet-fork-dev"]
 
 OPENSEA_URL = "https://testnets.opensea.io/assets/{}/{}"
+BREED_MAPPING = {0:"PUG", 1: "SHIBA_INU",2: "ST_BERNARD"}
+
+def get_breed(breed_number):
+    return BREED_MAPPING[breed_number]
+
+
 # get account according to current network
 def get_account(index=None, id=None):
 
@@ -62,8 +74,11 @@ def get_contract(contract_name):
         # Load a contract need abi and address.
         # address is provided in config file.
         # abi and name is provided by contract object. like VRFCoordinator.
-        contract = Contract(contract_type._name, contract_address, contract_type.abi)
+        contract = Contract.from_abi(
+            contract_type._name, contract_address, contract_type.abi
+        )
     return contract
+
 
 def deploy_mocks():
     """use this script if you want to deploy mocks to a testnet"""
@@ -73,8 +88,10 @@ def deploy_mocks():
     print("deploying mock linktoken")
     link_token = LinkToken.deploy({"from": account})
     print("deploying mock vrf coordinator")
-    vrf_coordinator = VRFCoordinatorMock.deploy(link_token.address, {"from":account})
-    
+    vrf_coordinator = VRFCoordinatorMock.deploy(link_token.address, {"from": account})
+    print(f"VRFCoordinator deployed at {vrf_coordinator.address}")
+
+
 def fund_with_link(
     contract_address, account=None, link_token=None, amount=300000000000000000
 ):

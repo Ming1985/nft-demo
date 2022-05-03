@@ -1,11 +1,10 @@
-from multiprocessing import get_context
-from multiprocessing.spawn import get_command_line
 from scripts.helpful_scripts import fund_with_link, get_account, OPENSEA_URL, get_contract
 from brownie import AdvancedCollectible, config, network
 
 
 def deploy_and_create():
     account = get_account()
+    # deploy the contract
     advanced_collectible = AdvancedCollectible.deploy(
         get_contract("vrf_coordinator"),
         get_contract("link_token"),

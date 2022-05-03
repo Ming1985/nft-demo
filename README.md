@@ -31,6 +31,8 @@
 ### Events
 - topic0: hash of the signature of the event
 - topic1,2... the parameters of the function
+- get event from transaction by brownie
+- format: tx.events[eventname][eventVariable]
 ### Testing
 ### URI
 need to find a way to host metadata and images
@@ -51,9 +53,17 @@ A sample metadata
     ]
 }
 ```
+
+- upload file to ipfs, get uri, save onchain. 
+- ipfs init
+- ipfs daemon. start the daemon service
+- post request to /api/v0/add to add a file to ipfs
+- curl -X POST -F file=@metadata/rinkeby/0-SHIBA_INU.json http://localhost:5001/api/v0/add   USE curl to post a file onto ipfs network
+- 
+  
 ## Resources
 - ERC721 Standard: https://eips.ethereum.org/EIPS/eip-721   
 - OpenZeppelin ERC721 contract source code: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol
 - dungen and dragon nft example https://github.com/PatrickAlphaC/dungeons-and-dragons-nft
 - VRFConsumerBase code: https://github.com/smartcontractkit/chainlink-brownie-contracts/blob/main/contracts/src/v0.6/VRFConsumerBase.sol
- 
+- IPFS docs https://docs.ipfs.io/reference/http/api/#getting-started 

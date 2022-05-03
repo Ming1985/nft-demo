@@ -15,6 +15,7 @@ def test_can_create_advanced_collectible():
     # acting
     advanced_collectible, creation_transaction = deploy_and_create()
     # get an event from a transaction
+    # format: tx.events[eventname][eventvariable]
     requestId = creation_transaction.events["requestedCollectible"]["requestId"]
     random_number = 777
     # vrf coordinator call back function
